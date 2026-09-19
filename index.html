@@ -414,22 +414,74 @@ input:focus,textarea:focus,select:focus{border-color: var(--orange);
 .drawer-body{flex: 1;
       overflow-y: auto;
       padding: 18px;}
-.cart-item{border-bottom: 1px solid var(--border);
-      padding: 15px 0;}
+.cart-item{border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(17,17,17,.04);
+      margin-bottom: 14px;}
+.cart-item:last-child{margin-bottom: 0;}
+.cart-item-card{display: grid;
+      grid-template-columns: 108px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;}
+.cart-item-thumb{width: 108px;
+      height: 108px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(135deg,#fff1e5 0%,#ffe1c9 100%);
+      border: 1px solid rgba(255,121,0,.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 108px;}
+.cart-item-thumb img{width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      padding: 8px;
+      display: block;}
+.cart-item-thumb.placeholder{color: var(--orange);
+      font-size: 33px;
+      font-weight: 900;}
+.cart-item-content{min-width: 0;}
 .cart-item-top{display: flex;
       justify-content: space-between;
-      gap: 12px;}
+      gap: 12px;
+      align-items: flex-start;}
+.cart-item-name{font-size: 17px;
+      line-height: 1.15;}
+.cart-item .price{white-space: nowrap;}
 .cart-item small{display: block;
       color: var(--gray);
-      margin: 6px 0;}
+      margin: 5px 0;
+      line-height: 1.35;}
+.cart-item-description{margin-top: 8px;}
+.cart-item-additions{color: var(--orange) !important;}
 .cart-controls{display: flex;
       align-items: center;
-      gap: 8px;}
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;}
+.cart-qty-group{display: inline-flex;
+      align-items: center;
+      gap: 10px;}
+.cart-qty-group span{min-width: 20px;
+      text-align: center;
+      font-weight: 800;
+      color: var(--dark);}
 .cart-controls button{background: #fff1e8;
       color: var(--orange);
-      border-radius: 7px;
-      padding: 4px 9px;
+      border-radius: 10px;
+      padding: 8px 14px;
       font-weight: 900;}
+.cart-qty-group button{min-width: 44px;
+      min-height: 44px;
+      font-size: 20px;
+      line-height: 1;}
+.cart-remove-btn{min-height: 44px;
+      padding-inline: 18px;}
 .drawer-footer{border-top: 1px solid var(--border);
       padding: 18px;}
 .summary-row{display: flex;
@@ -504,10 +556,18 @@ section{padding: 45px 0;}
 .drawer-head{padding: 16px 16px 14px;}
 .drawer-body{padding: 10px 16px;}
 .drawer-footer{padding: 14px 16px calc(14px + env(safe-area-inset-bottom));}
-.cart-item{padding: 16px 0;}
+.cart-item{padding: 14px;}
+.cart-item-card{grid-template-columns: 88px minmax(0, 1fr);
+        gap: 12px;}
+.cart-item-thumb{width: 88px;
+        height: 88px;
+        flex-basis: 88px;
+        border-radius: 16px;}
 .cart-item-top{gap: 10px;}
+.cart-item-name{font-size: 16px;}
 .cart-controls{gap: 10px;
-        flex-wrap: wrap;}
+        flex-wrap: wrap;
+        margin-top: 10px;}
 .cart-controls button{min-width: 44px;
         min-height: 44px;
         padding: 8px 12px;
@@ -515,6 +575,8 @@ section{padding: 45px 0;}
         align-items: center;
         justify-content: center;
         touch-action: manipulation;}
+.cart-remove-btn{width: auto;}
+.cart-qty-group{gap: 8px;}
 .drawer .close,.modal .close{width: 44px;
         height: 44px;}
 textarea,input,select{min-height: 48px;
@@ -583,9 +645,9 @@ to{opacity: 1; transform: translateX(0);}}
 .product-page-grid{width: min(1120px, calc(100% - 40px)); margin: 36px auto 0;
       display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 54px; align-items: start;}
 .product-page-visual{position: sticky; top: 104px;}
-.product-page .product-photo{width: 100%; aspect-ratio: 1/1; height: auto; min-height: 0; border-radius: 28px; overflow: hidden;
-      background: #f3f3f3; box-shadow: var(--shadow);}
-.product-page .product-photo img{width: 100%; height: 100%; object-fit: cover;}
+.product-page .product-photo{width: 100%; aspect-ratio: 4/3; height: auto; min-height: 320px; border-radius: 28px; overflow: hidden;
+      background: #f3f3f3; box-shadow: var(--shadow); display:flex; align-items:center; justify-content:center;}
+.product-page .product-photo img{width: 100%; height: 100%; object-fit: contain; object-position: center center; display:block;}
 .product-page-content{min-width: 0; padding-top: 12px;}
 .product-detail-label{color: var(--orange); font-size: 12px; font-weight: 900; letter-spacing: 1.4px;}
 .product-page h2{font-family: var(--font-display); font-size: clamp(38px, 5vw, 58px); line-height: .95; margin: 8px 0 14px;}
@@ -598,7 +660,7 @@ body.product-page-open{overflow: hidden;}
 @media (max-width: 760px){.product-page-grid{width: 100%; margin: 0; display: block;}
 .product-page-topbar{min-height: 60px; padding: 8px 14px;}
 .product-page-visual{position: static;}
-.product-page .product-photo{border-radius: 0; box-shadow: none;}
+.product-page .product-photo{border-radius: 0; box-shadow: none; min-height: 260px; aspect-ratio: 4/3;}
 .product-page-content{padding: 24px 18px 36px;}
 .product-page h2{font-size: 43px;}
 .product-page-buybar{background: #fff;}}
@@ -2653,38 +2715,353 @@ header .nav-actions button.cart-btn .cart-icon svg{
 }
 /* FIM CARRINHO DESKTOP — SEM CÍRCULO PRETO */
 
-
-/* MODAL PRODUTO — CENTRALIZAÇÃO DA IMAGEM */
-#productModal .product-page-visual{
-  display:flex !important;
+/* MODAL PRODUTO — DETALHE SEM IMAGEM */
+#productModal .product-page-grid{
+  width:min(760px, calc(100% - 40px)) !important;
+  grid-template-columns:minmax(0, 1fr) !important;
+  gap:0 !important;
   justify-content:center !important;
-  align-items:flex-start !important;
+  margin-top:22px !important;
 }
 
-#productModal #modalPhoto{
-  position:relative !important;
-  margin-left:auto !important;
-  margin-right:auto !important;
-  display:grid !important;
-  place-items:center !important;
-}
-
-#productModal #modalPhoto > img{
-  position:absolute !important;
-  left:50% !important;
-  top:50% !important;
-  right:auto !important;
-  bottom:auto !important;
+#productModal .product-page-content{
   width:100% !important;
-  height:100% !important;
-  margin:0 !important;
-  object-fit:cover !important;
-  object-position:50% 50% !important;
-  transform:translate(-50%,-50%) !important;
-  transform-origin:center center !important;
+  padding-top:0 !important;
 }
-/* FIM MODAL PRODUTO — CENTRALIZAÇÃO DA IMAGEM */
-</style></head>
+
+@media (max-width:760px){
+  #productModal .product-page-grid{
+    width:100% !important;
+    margin-top:0 !important;
+  }
+
+  #productModal .product-page-content{
+    padding:18px 18px 36px !important;
+  }
+}
+/* FIM MODAL PRODUTO — DETALHE SEM IMAGEM */
+</style>
+<style id="marmita-detail-polish">
+/* ===== DETALHES DAS MARMITAS P / M / G =====
+   O mesmo layout é aplicado às três opções.
+   A imagem de detalhe fica desacoplada do restante da página para poder ser trocada depois. */
+.product-detail-quantity{display:none;}
+
+#productModal .product-page.is-marmita-option{
+  background:#f7f7f7;
+  padding-bottom:112px;
+}
+#productModal .product-page.is-marmita-option .product-page-grid{
+  width:min(820px,calc(100% - 36px));
+  margin:22px auto 0;
+  display:block;
+}
+#productModal .product-page.is-marmita-option .product-page-visual{
+  display:block;
+  position:static;
+  margin:0 0 20px;
+}
+#productModal .product-page.is-marmita-option .product-detail-image-shell{
+  padding:8px;
+  background:linear-gradient(135deg,#fff1e5 0%,#ffe1c9 100%);
+  border:1px solid rgba(255,121,0,.18);
+  border-radius:24px;
+  box-shadow:0 12px 34px rgba(17,17,17,.08);
+}
+#productModal .product-page.is-marmita-option .product-photo{
+  width:100%;
+  height:auto;
+  aspect-ratio:4/3;
+  min-height:320px;
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fff0e2 0%,#ffd9bd 100%);
+  box-shadow:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+#productModal .product-page.is-marmita-option .product-photo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center center;
+  padding:10px;
+  box-sizing:border-box;
+  transform:none;
+}
+#productModal .product-page.is-marmita-option .product-page-content{
+  min-width:0;
+  padding:2px 2px 26px;
+  display:flex;
+  flex-direction:column;
+}
+#productModal .product-page.is-marmita-option .product-detail-label{
+  order:1;
+  margin:0 0 7px;
+  color:var(--orange);
+  font-size:11px;
+  line-height:1.2;
+  font-weight:900;
+  letter-spacing:1.45px;
+}
+#productModal .product-page.is-marmita-option h2{
+  order:2;
+  margin:0 0 7px;
+  font-size:clamp(36px,5vw,48px);
+  line-height:1;
+  letter-spacing:-.02em;
+}
+#productModal .product-page.is-marmita-option #modalBasePrice{
+  order:3;
+  margin:2px 0 9px;
+  font-size:27px;
+  line-height:1.15;
+  font-weight:950;
+  color:var(--orange);
+}
+#productModal .product-page.is-marmita-option #modalDescription{
+  order:4;
+  max-width:62ch;
+  margin:0 0 20px;
+  color:#676767;
+  font-size:15px;
+  line-height:1.55;
+}
+#productModal .product-page.is-marmita-option .product-config-section{
+  order:5;
+  margin-top:0;
+  padding-top:18px;
+}
+#productModal .product-page.is-marmita-option .field:has(#modalObservation){
+  order:6;
+  margin-top:15px;
+  padding:16px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:0 7px 22px rgba(17,17,17,.045);
+}
+#productModal .product-page.is-marmita-option label[for="modalObservation"]{
+  display:block;
+  margin:0 0 9px;
+  color:#262626;
+  font-size:15px;
+  line-height:1.3;
+  font-weight:850;
+}
+#productModal .product-page.is-marmita-option label[for="modalObservation"] small{
+  color:#777;
+  font-size:12px;
+  font-weight:650;
+}
+#productModal .product-page.is-marmita-option #modalObservation{
+  display:block;
+  width:100%;
+  min-height:92px;
+  max-height:150px;
+  margin:0;
+  padding:13px 14px;
+  resize:vertical;
+  border:1px solid #dedede;
+  border-radius:14px;
+  background:#fafafa;
+  color:#222;
+  font:inherit;
+  font-size:15px;
+  line-height:1.45;
+  box-shadow:none;
+}
+#productModal .product-page.is-marmita-option #modalObservation:focus{
+  outline:none;
+  border-color:rgba(255,106,0,.65);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(255,106,0,.10);
+}
+#productModal .product-page.is-marmita-option .product-detail-quantity{
+  order:7;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin-top:14px;
+  padding:14px 16px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:0 7px 22px rgba(17,17,17,.045);
+}
+#productModal .product-page.is-marmita-option .product-detail-quantity > span{
+  color:#292929;
+  font-size:15px;
+  font-weight:850;
+}
+#productModal .product-page.is-marmita-option .product-detail-quantity .quantity{
+  display:grid;
+  grid-template-columns:44px 42px 44px;
+  align-items:center;
+  gap:8px;
+}
+#productModal .product-page.is-marmita-option .product-detail-quantity .quantity button{
+  width:44px;
+  min-width:44px;
+  height:44px;
+  min-height:44px;
+  padding:0;
+  border:1px solid #f0d4bf;
+  border-radius:13px;
+  background:#fff4eb;
+  color:var(--orange);
+  font-size:22px;
+  line-height:1;
+  font-weight:900;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+#productModal .product-page.is-marmita-option .product-detail-quantity .quantity strong{
+  min-width:42px;
+  text-align:center;
+  font-size:17px;
+  line-height:1;
+  color:#222;
+}
+#productModal .product-page.is-marmita-option .product-page-buybar{
+  order:8;
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:120;
+  margin:0;
+  padding:11px max(16px,calc((100vw - 820px)/2 + 18px)) calc(11px + env(safe-area-inset-bottom));
+  display:grid;
+  grid-template-columns:minmax(88px,120px) minmax(230px,520px);
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  border-top:1px solid rgba(0,0,0,.09);
+  background:rgba(255,255,255,.97);
+  box-shadow:0 -10px 28px rgba(17,17,17,.09);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+#productModal .product-page.is-marmita-option .product-page-buybar > .quantity{
+  display:none;
+}
+#productModal .product-page.is-marmita-option .modal-total{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:2px;
+  min-width:0;
+}
+#productModal .product-page.is-marmita-option .modal-total > span:first-child{
+  color:#666;
+  font-size:12px;
+  line-height:1.1;
+  font-weight:750;
+}
+#productModal .product-page.is-marmita-option .modal-total .price{
+  color:var(--orange);
+  font-size:21px;
+  line-height:1.15;
+  font-weight:950;
+  white-space:nowrap;
+}
+#productModal .product-page.is-marmita-option .product-add-cart{
+  width:100%;
+  min-height:56px;
+  padding:0 18px;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+@media (max-width:760px){
+  #productModal .product-page.is-marmita-option{
+    padding-bottom:104px;
+  }
+  #productModal .product-page.is-marmita-option .product-page-grid{
+    width:calc(100% - 24px);
+    margin:12px auto 0;
+  }
+  #productModal .product-page.is-marmita-option .product-page-visual{
+    margin-bottom:17px;
+  }
+  #productModal .product-page.is-marmita-option .product-detail-image-shell{
+    padding:7px;
+    border-radius:19px;
+  }
+  #productModal .product-page.is-marmita-option .product-photo{
+    aspect-ratio:4/3;
+    min-height:260px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#fff0e2 0%,#ffd9bd 100%);
+  }
+  #productModal .product-page.is-marmita-option .product-page-content{
+    padding:0 3px 22px;
+  }
+  #productModal .product-page.is-marmita-option h2{
+    font-size:clamp(32px,10vw,40px);
+  }
+  #productModal .product-page.is-marmita-option #modalBasePrice{
+    font-size:25px;
+  }
+  #productModal .product-page.is-marmita-option #modalDescription{
+    margin-bottom:17px;
+    font-size:14px;
+  }
+  #productModal .product-page.is-marmita-option .field:has(#modalObservation),
+  #productModal .product-page.is-marmita-option .product-detail-quantity{
+    border-radius:16px;
+  }
+  #productModal .product-page.is-marmita-option #modalObservation{
+    min-height:88px;
+    font-size:16px;
+  }
+  #productModal .product-page.is-marmita-option .product-detail-quantity{
+    padding:12px 14px;
+  }
+  #productModal .product-page.is-marmita-option .product-detail-quantity .quantity{
+    grid-template-columns:43px 38px 43px;
+    gap:6px;
+  }
+  #productModal .product-page.is-marmita-option .product-detail-quantity .quantity button{
+    width:43px;
+    min-width:43px;
+    height:43px;
+    min-height:43px;
+  }
+  #productModal .product-page.is-marmita-option .product-page-buybar{
+    grid-template-columns:minmax(78px,auto) minmax(0,1fr);
+    gap:10px;
+    padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  }
+  #productModal .product-page.is-marmita-option .modal-total .price{
+    font-size:19px;
+  }
+  #productModal .product-page.is-marmita-option .product-add-cart{
+    min-height:54px;
+    padding:0 12px;
+    font-size:15px;
+    border-radius:13px;
+  }
+}
+
+@media (max-width:380px){
+  #productModal .product-page.is-marmita-option .product-page-buybar{
+    grid-template-columns:72px minmax(0,1fr);
+    gap:8px;
+  }
+  #productModal .product-page.is-marmita-option .modal-total .price{font-size:17px;}
+  #productModal .product-page.is-marmita-option .product-add-cart{font-size:14px;padding:0 9px;}
+}
+</style>
+
+</head>
 <body>
 <header>
 <div class="container nav">
@@ -2833,8 +3210,10 @@ header .nav-actions button.cart-btn .cart-icon svg{
 <button aria-label="Fechar" class="close" onclick="closeProductModal()">×</button>
 </div>
 <div class="product-page-grid">
-<div class="product-page-visual">
-<div class="product-photo" id="modalPhoto"><span class="tc-icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 15h16M6 15a6 6 0 0 1 12 0M3 19h18M12 7V5"></path></svg></span></div>
+<div class="product-page-visual" id="modalProductVisual" hidden>
+<div class="product-detail-image-shell">
+<div class="product-photo" id="modalProductPhoto"></div>
+</div>
 </div>
 <div class="product-page-content">
 <span class="product-detail-label">MONTE SEU PEDIDO</span>
@@ -2849,6 +3228,14 @@ header .nav-actions button.cart-btn .cart-icon svg{
 <div class="field">
 <label for="modalObservation">Observações do pedido <small>(opcional)</small></label>
 <textarea id="modalObservation" maxlength="250" placeholder="Ex.: sem cebola, sem salada ou outra observação para a marmita"></textarea>
+</div>
+<div class="product-detail-quantity" aria-label="Quantidade do produto">
+<span>Quantidade</span>
+<div class="quantity">
+<button aria-label="Diminuir quantidade" onclick="changeModalQuantity(-1)">−</button>
+<strong id="modalQuantityMirror">1</strong>
+<button aria-label="Aumentar quantidade" onclick="changeModalQuantity(1)">+</button>
+</div>
 </div>
 <div class="product-page-buybar">
 <div class="quantity">
@@ -3032,6 +3419,13 @@ header .nav-actions button.cart-btn .cart-icon svg{
       return document.querySelector(`#${cardId} img[data-marmita-size-image]`)?.getAttribute("src") || "";
     }
 
+    function marmitaSharedImage(name = "") {
+      return document.querySelector('img.hero-cutout')?.getAttribute("src") ||
+        document.querySelector('img[alt="Marmita com arroz, feijão, frango, batatas e salada"]')?.getAttribute("src") ||
+        productImageFromPage(name) ||
+        "";
+    }
+
     function productObject(item, category) {
       return {
         name: item[0],
@@ -3135,14 +3529,55 @@ header .nav-actions button.cart-btn .cart-icon svg{
       selectedProduct = product;
       modalQuantity = 1;
 
+      const productModal = document.getElementById("productModal");
+      const productPage = productModal.querySelector(".product-page");
+      const marmitaOptionNames = ["Opção Pequena", "Opção Média", "Opção Grande"];
+      const isMarmitaOption = product.category === "marmitas" && marmitaOptionNames.includes(product.name);
+      productPage.classList.toggle("is-marmita-option", isMarmitaOption);
+
       document.getElementById("modalName").textContent = product.name;
       document.getElementById("modalDescription").textContent = product.description;
       document.getElementById("modalBasePrice").textContent = money(product.price);
-      const modalPhoto = document.getElementById("modalPhoto");
-      modalPhoto.className = `product-photo ${product.image ? "" : "placeholder"}`;
-      modalPhoto.innerHTML = productPhoto(product, true);
       document.getElementById("modalQuantity").textContent = modalQuantity;
+      document.getElementById("modalQuantityMirror").textContent = modalQuantity;
       document.getElementById("modalObservation").value = "";
+
+      const modalVisual = document.getElementById("modalProductVisual");
+      const modalPhoto = document.getElementById("modalProductPhoto");
+
+      // IMAGEM DE DETALHE DAS MARMITAS P / M / G
+      // As três opções usam a marmita genérica aprovada enquanto as fotos oficiais não chegam.
+      // Quando houver uma foto própria da marmitaria, basta trocar a origem aqui sem refazer o modal.
+      const getMarmitaDetailImage = () =>
+        marmitaSharedImage(product.name) ||
+        product.image ||
+        "";
+
+      const detailImage = isMarmitaOption
+        ? getMarmitaDetailImage()
+        : (product.image || productImageFromPage(product.name) || "");
+
+      if (detailImage) {
+        modalPhoto.className = "product-photo";
+        modalPhoto.innerHTML = `<img src="${detailImage}" alt="${product.name}" loading="eager">`;
+        modalVisual.hidden = false;
+      } else {
+        modalPhoto.innerHTML = "";
+        modalVisual.hidden = true;
+      }
+
+      const observationLabel = document.querySelector('label[for="modalObservation"]');
+      const observationField = document.getElementById("modalObservation");
+      const addToCartButton = productPage.querySelector(".product-add-cart");
+      if (isMarmitaOption) {
+        observationLabel.innerHTML = "📝 Alguma observação? <small>(opcional)</small>";
+        observationField.placeholder = "Ex.: sem cebola, sem salada, pouco molho...";
+        addToCartButton.textContent = "🛒 Adicionar ao carrinho";
+      } else {
+        observationLabel.innerHTML = "Observações do pedido <small>(opcional)</small>";
+        observationField.placeholder = "Ex.: sem cebola, sem salada ou outra observação para a marmita";
+        addToCartButton.textContent = "Adicionar ao carrinho";
+      }
 
       document.querySelector("#modalOptions").closest(".product-config-section").style.display = additions.length ? "" : "none";
       document.getElementById("modalOptions").innerHTML = additions.map((add, index) => `
@@ -3156,7 +3591,6 @@ header .nav-actions button.cart-btn .cart-icon svg{
       `).join("");
 
       updateModalTotal();
-      const productModal = document.getElementById("productModal");
       productModal.classList.add("show");
       productModal.setAttribute("aria-hidden", "false");
       document.body.classList.add("product-page-open");
@@ -3192,6 +3626,8 @@ header .nav-actions button.cart-btn .cart-icon svg{
     function changeModalQuantity(value) {
       modalQuantity = Math.max(1, modalQuantity + value);
       document.getElementById("modalQuantity").textContent = modalQuantity;
+      const mirror = document.getElementById("modalQuantityMirror");
+      if (mirror) mirror.textContent = modalQuantity;
       updateModalTotal();
     }
 
@@ -3226,7 +3662,12 @@ header .nav-actions button.cart-btn .cart-icon svg{
         additions: selected,
         observation,
         quantity: modalQuantity,
-        unitPrice: selectedProduct.price + extraTotal
+        unitPrice: selectedProduct.price + extraTotal,
+        image: selectedProduct.category === "marmitas" && ["Opção Pequena", "Opção Média", "Opção Grande"].includes(selectedProduct.name)
+          ? marmitaSharedImage(selectedProduct.name)
+          : (selectedProduct.image || productImageFromPage(selectedProduct.name) || ""),
+        category: selectedProduct.category || "",
+        isMarmitaOption: selectedProduct.category === "marmitas" && ["Opção Pequena", "Opção Média", "Opção Grande"].includes(selectedProduct.name)
       };
 
       cart.push(item);
@@ -3263,6 +3704,20 @@ header .nav-actions button.cart-btn .cart-icon svg{
         .replace(/'/g, "&#039;");
     }
 
+    function cartItemThumb(item) {
+      if (item.image) {
+        return `<div class="cart-item-thumb"><img src="${item.image}" alt="${escapeHtml(item.name)}" loading="lazy"></div>`;
+      }
+
+      return `<div class="cart-item-thumb placeholder">${categoryIcon(item.category)}</div>`;
+    }
+
+    function cartItemObservation(item) {
+      return item.observation
+        ? `Observação: ${escapeHtml(item.observation)}`
+        : "Sem observações.";
+    }
+
     function updateCart() {
       const count = cart.reduce((sum, item) => sum + item.quantity, 0);
       document.getElementById("cartCount").textContent = count;
@@ -3274,24 +3729,30 @@ header .nav-actions button.cart-btn .cart-icon svg{
       } else {
         container.innerHTML = cart.map(item => `
           <div class="cart-item">
-            <div class="cart-item-top">
-              <strong>${item.name}</strong>
-              <strong class="price">${money(item.unitPrice * item.quantity)}</strong>
-            </div>
+            <div class="cart-item-card">
+              ${cartItemThumb(item)}
+              <div class="cart-item-content">
+                <div class="cart-item-top">
+                  <strong class="cart-item-name">${item.name}</strong>
+                  <strong class="price">${money(item.unitPrice * item.quantity)}</strong>
+                </div>
 
-            ${item.additions.length
-              ? `<small>Adicionais: ${item.additions.map(a => a.name).join(", ")}</small>`
-              : ""}
+                <small class="cart-item-description">${escapeHtml(item.description || "Produto selecionado.")}</small>
+                <small class="cart-item-observation">${cartItemObservation(item)}</small>
 
-            ${item.observation
-              ? `<small>Obs.: ${escapeHtml(item.observation)}</small>`
-              : ""}
+                ${item.additions.length
+                  ? `<small class="cart-item-additions">Adicionais: ${item.additions.map(a => a.name).join(", ")}</small>`
+                  : ""}
 
-            <div class="cart-controls">
-              <button onclick="changeCartQuantity(${item.id}, -1)">−</button>
-              <span>${item.quantity}</span>
-              <button onclick="changeCartQuantity(${item.id}, 1)">+</button>
-              <button onclick="removeCartItem(${item.id})">Remover</button>
+                <div class="cart-controls">
+                  <div class="cart-qty-group">
+                    <button type="button" aria-label="Diminuir quantidade de ${escapeHtml(item.name)}" onclick="changeCartQuantity(${item.id}, -1)">−</button>
+                    <span>${item.quantity}</span>
+                    <button type="button" aria-label="Aumentar quantidade de ${escapeHtml(item.name)}" onclick="changeCartQuantity(${item.id}, 1)">+</button>
+                  </div>
+                  <button type="button" class="cart-remove-btn" onclick="removeCartItem(${item.id})">Remover</button>
+                </div>
+              </div>
             </div>
           </div>
         `).join("");
